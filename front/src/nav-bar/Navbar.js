@@ -45,7 +45,7 @@ export default function Navbar() {
       <div className="D-NAV">
         <Link to="/"> <FaHome /> ACCEUIL</Link>
         <Link to="/can-page"> <FaFutbol /> CAN 25 </Link>
-        <Link to="/concerts"> <FaMusic /> CONCERT ET FESTIVALS</Link>
+        <Link to="/concerts-page"> <FaMusic /> CONCERT ET FESTIVALS</Link>
         <Link to="/about"> <FaPhoneAlt /> ABOUT US</Link>
       </div>
 
