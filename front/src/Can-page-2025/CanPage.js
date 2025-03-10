@@ -45,7 +45,7 @@ export default function CanPage() {
       <div className="D-NAV">
         <Link to="/"> <FaHome /> ACCEUIL</Link>
         <Link to="/can-page"> <FaFutbol /> CAN 25 </Link>
-        <Link to="/concerts"> <FaMusic /> CONCERT ET FESTIVALS</Link>
+        <Link to="/concerts-page"> <FaMusic /> CONCERT ET FESTIVALS</Link>
         <Link to="/about"> <FaPhoneAlt /> ABOUT US</Link>
       </div>
 
@@ -71,7 +71,9 @@ export default function CanPage() {
     <br/>
     <br/>
     <br/>
-    <h1>hna afficher lbody </h1>
+    <h1>hna afficher lbody
+        can2025
+     </h1>
     <br/>
     <br/>
     <br/>
