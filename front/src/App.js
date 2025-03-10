@@ -4,6 +4,7 @@ import Cpricipal from "./Cprincipal.js";
 import About from "./About.js";
 import Login from "./Login/Login.js";
 import ChatLive from "./chat/ChatLive";
+import CanPage from "./Can-page-2025/CanPage.js";
 
 
 
@@ -15,6 +16,7 @@ function App() {
           <Route path="/" element={<Cpricipal />} />
           <Route path="/about" element={<About />} />
           <Route path="/seconnecter" element={<Login />} />
+          <Route path="/can-page" element={<CanPage/>} />
        
         </Routes>
         <ChatLive /> {/* إظهار الـ ChatLive في كل الصفحات */}
