@@ -27,7 +27,7 @@ export default function Can() {
 
             {/* Bouton Voir Plus */}
             <div className="voir-plus-container">
-                <Link to="/can25" className="voir-plus-btn">Voir Plus</Link>
+                <Link to="/Can-page" className="voir-plus-btn">Voir Plus</Link>
             </div>
         </div>
     );
