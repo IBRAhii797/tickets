@@ -10,9 +10,9 @@
 
 .can25-title {
   background-image: url(/public/can-back.PNG);
-  padding: 20px;
+padding: 20px;
   font-size: 48px; /* كبرنا الخط باش يبان مزيان */
-  color: #FF3B3B;; /* اللون الأساسي يتماشى مع ألوان الموقع */
+  color:  #ff5500; /* اللون الأساسي يتماشى مع ألوان الموقع */
   text-transform: uppercase;
   font-weight: 900; /* عريض بزاف باش يكون Catchy */
   letter-spacing: 1.5px;
@@ -196,27 +196,4 @@
   from { opacity: 0; transform: translateY(30px); }
   to { opacity: 1; transform: translateY(0); }
 }
-.voir-plus-container {
-  text-align: center;
-  margin-top: 20px;
-}
 
-.voir-plus-btn {
-  display: inline-block;
-  background: linear-gradient(to right, #ff5500, #ff7744);
-  color: white;
-  text-decoration: none;
-  padding: 12px 40px;
-  font-size: 16px;
-  font-weight: bold;
-  border-radius: 25px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.voir-plus-btn:hover {
-  background: #ff5500;
-  transform: translateY(-3px);
-}
