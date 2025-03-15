@@ -200,25 +200,27 @@ export default function CanPage(){
       </div>
          {/* Affichage des matchs filtrés */}
         
-         <div className="can25-container">
-      <h2 className="can25-title">Matches à venir</h2>
-      <div className="can25-grid">
-        {matches.map((match, index) => (
-          <div key={index} className="match-card">
-            <img src={`/images/${match.img}`} alt={match.teams} className="match-image" />
-            <div className="match-info">
-              <div className="match-teams">{match.teams}</div>
-              <div className="match-stadium">📍 {match.stadium}</div>
-              <div className="countdown-timer">⏳ {match.date}</div>
-              <div className="match-price">
-                À partir de <span className="static-price">{match.prix}</span>
-              </div>
-            </div>
-            <button className="buy-ticket-btn1">ACHETER</button>
+  {/* Affichage des matchs filtrés */}
+<div className="can25-container">
+  <h2 className="can25-title">Matches à venir</h2>
+  <div className="can25-grid">
+    {filteredMatches.map((match, index) => (  // Using filteredMatches instead of matches
+      <div key={index} className="match-card">
+        <img src={`/images/${match.img}`} alt={match.teams} className="match-image" />
+        <div className="match-info">
+          <div className="match-teams">{match.teams}</div>
+          <div className="match-stadium">📍 {match.stadium}</div>
+          <div className="countdown-timer">⏳ {match.date}</div>
+          <div className="match-price">
+            À partir de <span className="static-price">{match.prix}</span>
           </div>
-        ))}
+        </div>
+        <button className="buy-ticket-btn1">ACHETER</button>
       </div>
-    </div>
+    ))}
+  </div>
+</div>
+
     );
 
 
