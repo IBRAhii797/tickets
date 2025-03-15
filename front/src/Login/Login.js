@@ -1,36 +1,41 @@
-import React from 'react';
-import './Login.css'; // Assure-toi d'avoir les styles correspondants
+import { useState } from "react";
+import axios from "axios";
+import "./Login.css"
+import { useNavigate } from "react-router-dom";
 
-export default function Login() {
+const Register = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+ const navigate =useNavigate()
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post("http://127.0.0.1:8000/api/register", formData);
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error registering", error);
+    }
+    navigate('/')
+  };
     return (
         <div className='login-container'>
-            <div className='login-box'>
-                <h2>Connexion</h2>
-                <form>
-                    <input type="email" placeholder="Votre adresse e-mail" required className='input-field' />
-                    <input type="password" placeholder="Votre Mot de passe" required className='input-field' />
-                    <a href="#" className='forgot-password'>Mot de passe oublié?</a>
-                    <button type="submit" className='login-button'>Connexion</button>
-                </form>
-                <p className='social-text'>Ou essayez avec vos réseaux sociaux</p>
-                <div className='social-buttons'>
-                    <a href='https://www.facebook.com'><button className='facebook-button'>Facebook</button></a>
-                    <a href='https://accounts.google.com/signin'><button className='google-button'>Google+</button></a>
-                </div>
-            </div>
+           
             
-            <div className='separator'>Ou</div>
 
             <div className='signup-box'>
                 <h2>Nouveau compte</h2>
-                <form>
-                    <input type="text" placeholder="Votre nom" required className='input-field' />
-                    <input type="text" placeholder="Votre prénom" required className='input-field' />
-                    <input type="email" placeholder="Votre adresse e-mail" required className='input-field' />
-                    <input type="tel" placeholder="Votre téléphone" required className='input-field' />
-                    <input type="password" placeholder="Mot de passe" required className='input-field' />
-                    <input type="password" placeholder="Confirmer le mot de passe" required className='input-field' />
-                    <button type="submit" className='signup-button'>Inscription</button>
+                <form onSubmit={handleSubmit}>
+                <input type="text" name="name" placeholder="Name" onChange={handleChange} required /> <br/>
+                <input type="email" name="email" placeholder="Email" onChange={handleChange} required /> <br/>
+                <input type="password" name="password" placeholder="Password" onChange={handleChange} required /> <br/>
+                <button type="submit">Register</button>
                 </form>
                 <p className='social-text'>Ou inscrivez-vous avec vos réseaux sociaux:</p>
                 <div className='social-buttons'>
@@ -41,3 +46,5 @@ export default function Login() {
         </div>
     );
 }
+
+export default Register
