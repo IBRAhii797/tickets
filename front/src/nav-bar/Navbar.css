@@ -106,9 +106,80 @@
   color: white;
 }
 
-/* Body adjustment to account for fixed navbars */
-body {
-  padding-top: 100px; /* يضمن المساحة الكافية تحت navbar */
-  margin: 0;
-  font-family: 'Arial', sans-serif;
+
+.panier-message {
+  position: fixed;
+  top: 70px; /* Ajuste cette valeur pour le placer juste au-dessus du panier */
+  right: 4px; /* Aligne le message avec le bouton du panier */
+  background-color: white;
+  padding: 40px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  z-index: 999; /* Assure-toi que le message soit au-dessus des autres éléments */
+  width: 300px;
+  border-radius: 8px;
+  text-align: center;
 }
+/*////////*/
+.empty-message h3 {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.empty-message p {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.view-products-button {
+  background-color: rgb(26, 153, 199);
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  text-align: center;
+  width: 100%;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.view-products-button:hover {
+  background-color: darkorange;
+}
+/* Style pour le lien de connexion */
+.login-hover {
+  position: relative;
+  display: inline-block;
+}
+
+/* Cadre au survol */
+.login-dropdown {
+  display: none;
+  position: absolute;
+  top: 20px;  /* Positionner juste sous le bouton */
+  left: 0;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  width: 150px;
+  border-radius: 5px;
+  z-index: 999;
+}
+
+.login-hover:hover .login-dropdown {
+  display: block;
+}
+
+.login-dropdown a {
+  display: block;
+  padding: 8px;
+  text-decoration: none;
+  color: #333;
+  font-size: 14px;
+}
+
+.login-dropdown a:hover {
+  background-color: #f96706;
+}
+
