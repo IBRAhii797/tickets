@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Navbar.css";
-import { FaHome,FaSignOutAlt , FaUser, FaShoppingCart, FaPhoneAlt, FaFutbol, FaMusic } from 'react-icons/fa';
+import { FaHome, FaSignOutAlt, FaUser, FaShoppingCart, FaPhoneAlt, FaFutbol, FaMusic, FaSearch } from 'react-icons/fa'; // Ajout de FaSearch
 import Login from '../Login/Login';
 
 export default function Navbar() {
@@ -9,9 +9,15 @@ export default function Navbar() {
   const [showPanierMessage, setShowPanierMessage] = useState(false);
   const [items, setItems] = useState([]);
   const [showLoginOptions, setShowLoginOptions] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
   const navigate = useNavigate();
   const panierRef = useRef(null);
+
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
 
   const handleLoginClick = () => {
     setShowLogin(true);
@@ -30,7 +36,6 @@ export default function Navbar() {
       navigate("/");
     }
   };
-  
 
   const handlePanierClick = (e) => {
     e.stopPropagation();
@@ -43,6 +48,10 @@ export default function Navbar() {
 
   const handleMouseLeaveLogin = () => {
     setShowLoginOptions(false);
+  };
+
+  const handleMenuClick = () => {
+    setShowMenu(!showMenu);
   };
 
   useEffect(() => {
@@ -66,35 +75,55 @@ export default function Navbar() {
     <div>
       <div className="P-NAV">
         <ul className="left-items">
-          <li>
-            <Link to="/" className="logo">WRI9A</Link>
+          <li className="menu-toggle">
+            <button onClick={handleMenuClick} className="menu-button">☰</button>
+            {showMenu && (
+              <div className="menu-dropdown">
+                <Link to="/page1"><FaHome /> Accueil</Link>
+                <Link to="/can-page"><FaFutbol /> CAN 25</Link>
+                <Link to="/concerts-page"><FaMusic /> Concerts et Festivals</Link>
+                <Link to="/about"><FaPhoneAlt /> About Us</Link>
+              </div>
+            )}
+          </li>
+          <li className="search-container">
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={handleSearchChange}
+              placeholder="Rechercher..."
+              className="search-input1"
+            />
+            <li className="search-icon1">
+              <FaSearch />
+            </li>
           </li>
           <li>
-            <input type="search" placeholder="rechercher" />
+            <Link to="/" className="logo">WRI9A</Link>
           </li>
         </ul>
 
         <ul className="right-items">
           <li className="login-hover" onMouseEnter={handleHoverLogin} onMouseLeave={handleMouseLeaveLogin}>
             {isLoggedIn ? (
-              <button onClick={handleLogout} > <FaSignOutAlt /></button>
+              <button className="logout" onClick={handleLogout}> <FaSignOutAlt /></button>
             ) : (
               <>
-                <Link to="" className=""> 
+                <Link to="" className="compte1"> 
                   <FaUser /> Compte
                 </Link>
                 {showLoginOptions && (
                   <div className="login-dropdown">
                     <Link to="/login" onClick={handleLoginClick}>Se connecter</Link>
                     <Link to="/newacc">Créer un compte</Link>
-                    <Link to="/adminlogin">admin</Link>
+                    <Link to="/adminlogin">Admin</Link>
                   </div>
                 )}
               </>
             )}
           </li>
           <li>
-            <Link to="#" onClick={handlePanierClick} className="" ref={panierRef}> 
+            <Link to="#" onClick={handlePanierClick} className="pan1" ref={panierRef}>
               <FaShoppingCart /> PANIER
             </Link>
           </li>

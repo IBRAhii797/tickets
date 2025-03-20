@@ -1,12 +1,13 @@
 /* Style P-NAV (Barre principale) */
 .P-NAV {
-  background: linear-gradient(to right, #001f3f, #0074D9); /* نفس لون الخلفية ديال السلايدر */
-  padding: 12px 30px;
+  background: linear-gradient(to right, #001f3f, #0074D9); /* Même couleur de fond que le slider */
+ 
+  padding: 80px 5%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   position: fixed;
-  top: 0;
+  top: -15px;
   left: 0;
   width: 100%;
   z-index: 1000;
@@ -27,19 +28,79 @@
   margin: 0 15px;
 }
 
+/* Search input */
+.search-input1 {
+  padding: 8px 16px; /* Add padding for the text inside the input */
+  border: 2px solid #ccc; /* Light border */
+  border-radius: 20px; /* Rounded corners */
+  background-color: #f8f8f8; /* Light background color */
+  color: #333; /* Dark text color for good readability */
+  font-size: 16px; /* Font size for better readability */
+  width: 100%; /* Full width for responsiveness */
+  max-width: 400px; /* Limit the width to make it not too large */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for focus effect */
+}
+
+.search-input1:focus {
+  border-color: #eae3e0; /* Orange border on focus */
+  outline: none; /* Remove default outline */
+  box-shadow: 0 0 5px rgba(255, 85, 0, 0.5); /* Subtle shadow to highlight the input field */
+}
+
+.search-input1::placeholder {
+  color: #aaa; /* Light gray color for the placeholder text */
+  font-size: 14px; /* Slightly smaller placeholder text */
+}
+
+/* Search icon */
+.search-icon1 {
+  position: absolute;
+  right: 1132px;
+  top: 28px;
+  color: #1515cf;
+  cursor: pointer;
+}
+
 /* Logo */
 .P-NAV .logo {
-  font-size: 24px; /* Augmenter légèrement la taille */
+  font-size: 25px; /* Increase size */
   font-weight: bold;
   text-transform: uppercase;
-  color: #f1c40f; /* Couleur dorée */
-  font-family: 'Poppins', sans-serif; /* Changer la police en Poppins par exemple */
+  color: #dafeff; /* Gold color */
+  font-family: 'Poppins', sans-serif; /* Poppins font */
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-  width: 100%; /* S'assurer que l'élément occupe toute la largeur */
+  width: 600%; /* Ensure it takes the full width */
 }
+.logout {
+   /* Couleur d'arrière-plan (orange rouge) */
+   background-color: #0074D9;
+  color: white; /* Couleur du texte */
+  font-size: 16px; /* Taille de police modérée */
+  font-weight: bold; /* Texte en gras */
+  padding: 10px 20px; /* Espacement autour du texte */
+  border-radius: 25px; /* Coins arrondis */
+  border: none; /* Aucune bordure */
+  cursor: pointer; /* Curseur de la souris comme un bouton cliquable */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Animation douce sur le survol */
+}
+
+.logout:hover {
+  background-color: #ff5500; /* Changer la couleur d'arrière-plan lorsque l'on survole */
+  transform: scale(1.05); /* Augmenter légèrement la taille du bouton */
+}
+
+.logout:focus {
+  outline: none; /* Supprimer le contour par défaut */
+}
+
+.logout:active {
+  background-color: #9C3B2F; /* Changer la couleur lors du clic */
+  transform: scale(1); /* Annuler l'effet de survol pendant le clic */
+}
+
 
 /* Links */
 .P-NAV a {
@@ -53,32 +114,16 @@
 
 .P-NAV a:hover {
   background-color: #ff5500;
-  color: white;/* نفس لون نقاط السلايدر */
+  color: white;
   border-radius: 20px;
-}
-
-/* Search input */
-.P-NAV input[type="search"] {
-  padding: 8px 12px;
-  border: 1px solid #f1c40f; /* ذهبي */
-  border-radius: 20px;
-  background-color: #f8f8f8;
-  color: #333;
-  transition: border-color 0.3s ease;
-  width: 250px;
-}
-
-.P-NAV input[type="search"]:focus {
-  border-color: #ff5500; /* برتقالي */
-  outline: none;
 }
 
 /* ---- D-NAV (Barre secondaire) ---- */
 .D-NAV {
-  background-color: #003366; /* نفس خلفية السلايدر */
+  background-color: #003366; /* Same color as the slider */
   padding: 12px 0;
   position: fixed;
-  top: 56px; /* تحت P-NAV مباشرة */
+  top: 56px; /* Just below P-NAV */
   left: 0;
   width: 100%;
   display: flex;
@@ -87,7 +132,7 @@
   z-index: 999;
 }
 
-/* Links في D-NAV */
+/* Links in D-NAV */
 .D-NAV a {
   color: white;
   text-decoration: none;
@@ -106,20 +151,21 @@
   color: white;
 }
 
-
+/* Panier message */
 .panier-message {
   position: fixed;
-  top: 70px; /* Ajuste cette valeur pour le placer juste au-dessus du panier */
-  right: 4px; /* Aligne le message avec le bouton du panier */
+  top: 70px;
+  right: 4px;
   background-color: white;
   padding: 40px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-  z-index: 999; /* Assure-toi que le message soit au-dessus des autres éléments */
-  width: 300px;
+  z-index: 999;
+  width: 400px;
   border-radius: 8px;
   text-align: center;
 }
-/*////////*/
+
+/* Message vide du panier */
 .empty-message h3 {
   font-size: 18px;
   font-weight: bold;
@@ -147,17 +193,18 @@
 .view-products-button:hover {
   background-color: darkorange;
 }
-/* Style pour le lien de connexion */
+
+/* Style for login link */
 .login-hover {
   position: relative;
   display: inline-block;
 }
 
-/* Cadre au survol */
+/* Hover frame */
 .login-dropdown {
   display: none;
   position: absolute;
-  top: 20px;  /* Positionner juste sous le bouton */
+  top: 20px;
   left: 0;
   background-color: white;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -181,5 +228,222 @@
 
 .login-dropdown a:hover {
   background-color: #f96706;
+}
+
+/* Menu */
+.menu-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: white;
+  cursor: pointer;
+}
+
+.menu-button:hover {
+  background-color: #0056b3;
+}
+
+.menu-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: rgb(236, 241, 245);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  border-radius: 5px;
+  width: auto;
+  gap: 15px;
+  z-index: 999;
+}
+
+.menu-dropdown a {
+  display: flex;
+  text-decoration: none;
+  color: #161515;
+  padding: 8px;
+}
+
+.menu-dropdown a:hover {
+  background-color: #ec7b11;
+}
+
+.menu-dropdown a svg {
+  margin-right: 10px;
+}
+
+/* التصميم المتجاوب - الشاشات الصغيرة (الجوال) */
+@media screen and (max-width: 480px) {
+  .P-NAV {
+    flex-direction: column;
+    padding: 10px;
+  }
+  .P-NAV .logo{
+    display: none;
+  }
+  .P-NAV input[type="search"] {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .D-NAV {
+    flex-direction: column;
+    gap: 15px;
+    display: none; /* إخفاء شريط التنقل الثانوي على الشاشات الصغيرة */
+  }
+
+  .D-NAV a {
+    font-size: 12px;
+    padding: 10px;
+  }
+
+  .menu-dropdown {
+    width: 100%;
+    left: 0;
+    padding: 10px 20px;
+  }
+  
+
+  .menu-dropdown a {
+    font-size: 14px;
+  }
+
+  .login-dropdown {
+    width: 100%;
+    padding: 15px 10px;
+    text-align: center;
+  }
+
+  .panier-message {
+    width: 80%;
+    padding: 20px;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .menu-button {
+    font-size: 30px;
+  }
+
+  .search-input1 {
+    width: 100%;
+    padding: 8px 16px;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+
+  /* إخفاء العناصر الموجودة في .right-items على الشاشات الصغيرة */
+  .right-items {
+    display: none;
+  }
+}
+
+
+/* Responsive Design - Medium Screens (Tablet) */
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .P-NAV {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .P-NAV input[type="search"] {
+    width: 80%;
+    margin-top: 10px;
+    
+  }
+  .P-NAV .logo{
+    display: none;
+  }
+  .P-NAV .menu-button{
+    margin-left: -150px;
+  }
+  .P-NAV .search-container{
+margin-left: -80px;
+  }
+
+  .D-NAV {
+    flex-direction: column;
+    gap: 15px;
+    display: none; /* Masquer la barre de navigation secondaire sur les tablettes */
+  }
+
+  .D-NAV a {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .menu-dropdown {
+    width: 100%;
+    left: 0;
+    padding: 10px 20px;
+  }
+
+  .menu-dropdown a {
+    font-size: 14px;
+  }
+
+  .login-dropdown {
+    width: 100%;
+    padding: 15px 10px;
+    text-align: center;
+  }
+
+  .panier-message {
+    width: 80%;
+    padding: 20px;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .menu-button {
+    font-size: 30px;
+  }
+
+  .search-input1 {
+    width: 80%;
+    padding: 8px 16px;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+  .right-items {
+    display: none;
+  }
+  
+}
+
+/* Responsive Design - Large Screens (Desktop) */
+@media screen and (min-width: 769px) {
+  .P-NAV {
+    flex-direction: row;
+    padding: 15px 30px;
+  }
+
+  .D-NAV {
+    flex-direction: row;
+    gap: 30px;
+    display: flex; /* Afficher la barre de navigation secondaire sur les grands écrans */
+  }
+
+  .D-NAV a {
+    font-size: 14px;
+    padding: 12px 16px;
+  }
+
+  .menu-dropdown {
+    display: none; /* Masquer les menus déroulants sur les écrans larges */
+  }
+
+  .menu-button {
+    display: none; /* Masquer le menu hamburger sur les grands écrans */
+  }
+
+  .search-input1 {
+    width: 250px;
+    padding: 8px 16px;
+  }
+ 
 }
 
