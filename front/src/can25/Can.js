@@ -1,71 +1,72 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom"; // ضروري باش نستعمل Link
-import "./Can.css";
-import matches from "./DataCan"; // DataCan.js فيها الماتشات
+import axios from "axios";
+import { Link } from "react-router-dom";
 
-function calculateTimeLeft(targetDate) {
-    const difference = new Date(targetDate) - new Date();
-    if (difference <= 0) return null;
+const Can = () => {
+  const [matches, setMatches] = useState([]); // Liste des matchs
+  const [loading, setLoading] = useState(true); // Loading state
 
-    return {
-        jours: Math.floor(difference / (1000 * 60 * 60 * 24)),
-        heures: Math.floor((difference / (1000 * 60 * 60)) % 24),
-        minutes: Math.floor((difference / 1000 / 60) % 60),
-        secondes: Math.floor((difference / 1000) % 60),
+  useEffect(() => {
+    const fetchMatches = async () => {
+      setLoading(true); // Afficher le loading
+      try {
+        const response = await axios.get("http://localhost:5000/api/matches");
+        setMatches(response.data.slice(0, 12)); // Limiter à 12 matchs seulement
+        setLoading(false); // Fin du loading
+      } catch (error) {
+        console.error("Erreur lors de la récupération des matchs :", error);
+        setLoading(false); // Fin du loading en cas d'erreur
+      }
     };
-}
 
-export default function Can() {
-    return (
-        <div className="can25-container">
-            <h1 className="can25-title">CAN25</h1>
-            <div className="can25-grid">
-                {matches.map((match, index) => (
-                    <MatchCard key={index} match={match} />
-                ))}
-            </div>
+    fetchMatches(); // Charger les matchs au premier rendu
+  }, []); // Se lance une seule fois lors du premier rendu
 
-            {/* Bouton Voir Plus */}
-            <div className="voir-plus-container">
-                <Link to="/Can-page" className="voir-plus-btn">Voir Plus</Link>
-            </div>
-        </div>
-    );
-}
+  
 
-function MatchCard({ match }) {
-    const [timeLeft, setTimeLeft] = useState(calculateTimeLeft(match.date + "T" + match.time));
+  if (loading) {
+    return <div>Chargement...</div>;
+  }
 
-    useEffect(() => {
-        const timer = setInterval(() => {
-            setTimeLeft(calculateTimeLeft(match.date + "T" + match.time));
-        }, 1000);
-
-        return () => clearInterval(timer);
-    }, [match.date, match.time]);
-
-    return (
-        <div className="match-card">
-            <img src={`/images/${match.img}`} alt={match.teams} className="match-image" />
-            <div className="match-info">
+  return (
+    <div className="can25-container">
+      <h1 className="can25-title">Can 25</h1>
+      <div className="can25-grid">
+        {matches.map((match) => {
+          return (
+            <div className="match-card" key={match._id}>
+              <img
+              src={`http://localhost:5000/${match.image}`}// Si tu as des images
+              className="match-image"
+              
+            />
+              <div className="match-info">
                 <div className="match-teams">{match.teams}</div>
-                <div className="match-stadium">📍 {match.stadium}</div>
+                <div className="match-stadium">📆 {new Date(match.date).toLocaleDateString()}</div>
+                <div className="match-teams">⏱️{match.time}</div>
 
-                <div className="countdown-timer">
-                    {timeLeft ? (
-                        <>
-                            ⏱️ {timeLeft.jours} j {timeLeft.heures} h {timeLeft.minutes} m {timeLeft.secondes} s
-                        </>
-                    ) : (
-                        <span className="match-started">🚨 Le match a commencé !</span>
-                    )}
-                </div>
+                <div className="match-stadium">📍 {match.location}</div>
+                
+
+                
 
                 <div className="match-price">
-                    À partir de <span className="static-price">{match.prix} MAD</span>
+                  À partir de <span className="static-price">{match.price} MAD</span>
                 </div>
+              </div>
+              <button className="buy-ticket-btn1
+              ">Acheter</button>
             </div>
-            <button className="buy-ticket-btn1">Acheter</button>
-        </div>
-    );
-}
+          );
+        })}
+      </div>
+      <div className="voir-plus-container">
+        <a href="/can-page" className="voir-plus-btn">
+          Voir plus
+        </a>
+      </div>
+    </div>
+  );
+};
+
+export default Can;
