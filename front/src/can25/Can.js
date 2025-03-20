@@ -59,11 +59,11 @@ const Can = () => {
             </div>
           );
         })}
-        <div className="voir-plus-container">
+      </div>
+      <div className="voir-plus-container">
         <a href="/can-page" className="voir-plus-btn">
           Voir plus
         </a>
-      </div>
       </div>
     </div>
   );
