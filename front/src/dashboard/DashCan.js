@@ -1,137 +1,92 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap
 
-const AddMatchForm = () => {
-  const [formData, setFormData] = useState({
-    
-    teams: "",
-    date: "",
-    time: "",
-    location: "",
-    price: "",
-    image: null,
-  });
+const MatchesTable = () => {
+  const [matches, setMatches] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
-  const handleFileChange = (e) => {
-    setFormData((prevData) => ({
-      ...prevData,
-      image: e.target.files[0],
-    }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    
-    const formDataToSend = new FormData();
-    formDataToSend.append("teams", formData.teams);
-
-    formDataToSend.append("date", formData.date);
-    formDataToSend.append("time", formData.time);
-    formDataToSend.append("location", formData.location);
-    formDataToSend.append("price", formData.price);
-    formDataToSend.append("image", formData.image);
-
-    try {
-      const response = await fetch("http://localhost:5000/api/matches", {
-        method: "POST",
-        body: formDataToSend,
+  useEffect(() => {
+    fetch("http://localhost:5000/api/matches")
+      .then((res) => res.json())
+      .then((data) => {
+        setMatches(data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Erreur lors de la récupération des matchs :", error);
+        setLoading(false);
       });
+  }, []);
 
-      if (response.ok) {
-        alert("Match ajouté avec succès !");
-      } else {
-        alert("Erreur lors de l'ajout du match !");
-      }
-    } catch (error) {
-      console.error("Erreur lors de l'ajout du match :", error);
+  // Fonction pour supprimer un match
+  const handleDelete = (id) => {
+    if (window.confirm("Voulez-vous vraiment supprimer ce match ?")) {
+      fetch(`http://localhost:5000/api/matches/${id}`, {
+        method: "DELETE",
+      })
+        .then((res) => res.json())
+        .then(() => {
+          setMatches(matches.filter((match) => match._id !== id)); // Mise à jour de l'état
+        })
+        .catch((error) => console.error("Erreur lors de la suppression :", error));
     }
   };
 
-
-
-  
+  if (loading) {
+    return <div>Chargement...</div>;
+  }
 
   return (
-    <div>
-    <div className="ajouter">
-      <h1>Ajouter un match</h1>
-      <form onSubmit={handleSubmit}>
-        
-        <div>
-          <label>Équipes:</label>
-          <input
-            type="text"
-            name="teams"
-            value={formData.teams}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label>Date:</label>
-          <input
-            type="date"
-            name="date"
-            value={formData.date}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label>Heure:</label>
-          <input
-            type="time"
-            name="time"
-            value={formData.time}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label>Lieu:</label>
-          <input
-            type="text"
-            name="location"
-            value={formData.location}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label>Prix:</label>
-          <input
-            type="number"
-            name="price"
-            value={formData.price}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label>Image:</label>
-          <input
-            type="file"
-            name="image"
-            onChange={handleFileChange}
-            required
-          />
-        </div>
-        <button type="submit">Ajouter le match</button>
-      </form>
-    </div>
-    <div className="table">
-
-
-    </div>
+    <div className="container mt-4">
+      <h1 className="mb-3">Liste des Matchs</h1>
+      <Link to="/addmatch" className="btn btn-success mb-3">
+        Ajouter un Match
+      </Link>
+      <table className="table table-bordered table-striped">
+        <thead className="table-dark">
+          <tr>
+            <th>id match</th>
+            <th>Image</th>
+            <th>Équipes</th>
+            <th>Date</th>
+            <th>Heure</th>
+            <th>Stade</th>
+            <th>Prix (DH)</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {matches.map((match) => (
+            <tr key={match._id}>
+              <td>{match._id}</td>
+              <td>
+                <img
+                  src={`http://localhost:5000/${match.image}`}
+                  alt={`${match.teams}`}
+                  width="100"
+                  className="img-fluid"
+                />
+              </td>
+              <td>{match.teams}</td>
+              <td>{new Date(match.date).toLocaleDateString()}</td>
+              <td>{match.time}</td>
+              <td>{match.location}</td>
+              <td>{match.price} DH</td>
+              <td>
+                <button
+                  onClick={() => handleDelete(match._id)}
+                  className="btn btn-danger"
+                >
+                  🗑 Supprimer
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
 
-export default AddMatchForm;
+export default MatchesTable;

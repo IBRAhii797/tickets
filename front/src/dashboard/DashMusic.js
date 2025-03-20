@@ -1,70 +1,75 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap
 
+const EventsTable = () => {
+  const [events, setEvents] = useState([]);
 
-const MusicForm = () => {
-  const [name, setName] = useState('');
-  const [location, setLocation] = useState('');
-  const [date, setDate] = useState('');
-  const [price, setPrice] = useState('');
-  const [image, setImage] = useState(null);
+  useEffect(() => {
+    fetch("http://localhost:5000/api/events")
+      .then((res) => res.json())
+      .then((data) => setEvents(data))
+      .catch((err) => console.error("Erreur:", err));
+  }, []);
 
-  const handleFileChange = (e) => {
-    setImage(e.target.files[0]);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    const formData = new FormData();
-    formData.append('name', name);
-    formData.append('location', location);
-    formData.append('date', date);
-    formData.append('price', price);
-    formData.append('image', image);  // Ajouter l'image au formulaire
-
-    // Envoie de la requête POST avec FormData
-    axios.post('http://localhost:5000/api/events', formData)
-      .then((response) => {
-        console.log('Event added:', response.data);
+  // 🛑 Fonction pour supprimer un événement
+  const deleteEvent = (id) => {
+    if (window.confirm("Tu es sûr de vouloir supprimer cet événement ?")) {
+      fetch(`http://localhost:5000/api/events/${id}`, {
+        method: "DELETE",
       })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
+        .then((res) => res.json())
+        .then(() => {
+          setEvents(events.filter((event) => event._id !== id));
+        })
+        .catch((err) => console.error("Erreur:", err));
+    }
   };
+
   return (
-    <form onSubmit={handleSubmit}>
-      <input 
-        type="text" 
-        placeholder="Nom de l'événement" 
-        value={name} 
-        onChange={(e) => setName(e.target.value)} 
-      />
-      <input 
-        type="text" 
-        placeholder="Lieu" 
-        value={location} 
-        onChange={(e) => setLocation(e.target.value)} 
-      />
-      <input 
-        type="text" 
-        placeholder="Date" 
-        value={date} 
-        onChange={(e) => setDate(e.target.value)} 
-      />
-      <input 
-        type="number" 
-        placeholder="Prix" 
-        value={price} 
-        onChange={(e) => setPrice(e.target.value)} 
-      />
-      <input 
-        type="file" 
-        onChange={handleFileChange} 
-      />
-      <button type="submit">Ajouter l'événement</button>
-    </form>
+    <div className="container mt-4">
+      <h2 className="mb-3">Liste des Événements</h2>
+      <Link to="/addmusic" className="btn btn-primary mb-3">➕ Ajouter un Événement</Link>
+
+      <table className="table table-striped table-bordered text-center">
+        <thead className="table-dark">
+          <tr>
+            <th>ID</th>
+            <th>Image</th>
+            <th>Nom</th>
+            <th>Lieu</th>
+            <th>Date</th>
+            <th>Prix</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {events.map((event) => (
+            <tr key={event._id}>
+              <td>{event._id}</td>
+              <td>
+                <img
+                  src={`http://localhost:5000/${event.image}`}
+                  alt={event.name}
+                  className="img-thumbnail"
+                  width="80"
+                />
+              </td>
+              <td>{event.name}</td>
+              <td>{event.location}</td>
+              <td>{event.date}</td>
+              <td>{event.price} DH</td>
+              <td>
+                <button className="btn btn-danger btn-sm" onClick={() => deleteEvent(event._id)}>
+                  🗑 Supprimer
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 };
 
-export default MusicForm;
+export default EventsTable;

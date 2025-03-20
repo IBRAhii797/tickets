@@ -9,8 +9,10 @@ import Register from "./Login/Login.js";
 import Newacc from "./Login/Newacc.js";
 import AdminLogin from "./Login/AdminLogin.js";
 import Dashboard from "./dashboard/Dashboard.js";
-import MusicForm from "./dashboard/DashMusic.js";
-import AddMatchForm from "./dashboard/DashCan.js";
+import AddMatchForm from "./dashboard/AddMatchForm.js";
+import DashCan from "./dashboard/DashCan.js";
+import DashMusic from "./dashboard/DashMusic.js";
+import AddMusicForm from"./dashboard/AddMusicForm.js";
 
 
 
@@ -29,8 +31,17 @@ function App() {
           <Route path="/concerts-page" element={<ConcertsPage/>} />
           <Route path="/adminlogin" element={<AdminLogin/>} />
           <Route path="/dashboard" element={<Dashboard/>} />
-          <Route path="/dashcan" element={<AddMatchForm/>} />
-          <Route path="/dashmusic" element={<MusicForm/>} />
+
+          <Route path="/dashmusic" element={<DashMusic/>} />
+          <Route path="/dashcan" element={<DashCan/>} />
+
+
+          <Route path="/addmatch" element={<AddMatchForm/>} />
+          <Route path="/addmusic" element={<AddMusicForm/>} />
+
+
+
+
 
 
 

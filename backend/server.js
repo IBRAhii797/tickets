@@ -196,6 +196,20 @@ app.get('/api/matches', (req, res) => {
     .catch(err => res.status(400).json('Error: ' + err)); // En cas d'erreur
 });
 
+//route pour suprimmer matche
+app.delete('/api/matches/:id', async (req, res) => {
+  try {
+      const matchId = req.params.id;
+      await Match.findByIdAndDelete(matchId);
+      res.status(200).json({ message: "Match supprimé avec succès" });
+  } catch (error) {
+      res.status(500).json({ error: "Erreur lors de la suppression du match" });
+  }
+});
+
+
+
+
 ////////////////////////// music admin //////////////
 // Pour permettre de lire les JSON dans les requêtes
 
@@ -264,6 +278,17 @@ app.get('/api/events', (req, res) => {
       .catch(err => res.status(400).json('Error: ' + err)); // F chi 7ala fiha error
   });
 
+// delete events music
+  app.delete("/api/events/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      await Event.findByIdAndDelete(id);
+      res.json({ message: "Événement supprimé avec succès" });
+    } catch (error) {
+      res.status(500).json({ error: "Erreur lors de la suppression" });
+    }
+  });
+  
   
   
 
