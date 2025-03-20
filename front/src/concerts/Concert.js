@@ -1,71 +1,62 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import axios from "axios";
 import "./Concert.css";
-import concerts from "./DataConcert"; // DataConcert.js فيها الكونسرات
 
-function calculateTimeLeft(targetDate) {
-    const difference = new Date(targetDate) - new Date();
-    if (difference <= 0) return null;
+const Can = () => {
+  const [events, setEvents] = useState([]); // Liste des événements
+  const [loading, setLoading] = useState(true); // Loading state
 
-    return {
-        jours: Math.floor(difference / (1000 * 60 * 60 * 24)),
-        heures: Math.floor((difference / (1000 * 60 * 60)) % 24),
-        minutes: Math.floor((difference / 1000 / 60) % 60),
-        secondes: Math.floor((difference / 1000) % 60),
+  useEffect(() => {
+    const fetchEvents = async () => {
+      setLoading(true); // Afficher le loading
+      try {
+        const response = await axios.get("http://localhost:5000/api/events");
+        setEvents(response.data.slice(0, 4)); // Limiter à 4 événements seulement
+        setLoading(false); // Fin du loading
+      } catch (error) {
+        console.error("Erreur lors de la récupération des événements :", error);
+        setLoading(false); // Fin du loading en cas d'erreur
+      }
     };
-}
 
-export default function Concert() {
-    return (
-        <div className="concert-container1">
-            <h1 className="concert-title1">Concerts & Festivals</h1>
-            <div className="concert-grid">
-                {concerts.map((concert, index) => (
-                    <ConcertCard key={index} concert={concert} />
-                ))}
-            </div>
+    fetchEvents(); // Charger les événements au premier rendu
+  }, []); // Se lance une seule fois lors du premier rendu
 
-            {/* Voir Plus */}
-            <div className="voir-plus-container">
-                <Link to="/concerts-page" className="voir-plus-btn">Voir Plus</Link>
-            </div>
-        </div>
-    );
-}
+  if (loading) {
+    return <div>Chargement...</div>;
+  }
 
-function ConcertCard({ concert }) {
-    const [timeLeft, setTimeLeft] = useState(calculateTimeLeft(concert.date + "T" + concert.heure));
-
-    useEffect(() => {
-        const timer = setInterval(() => {
-            setTimeLeft(calculateTimeLeft(concert.date + "T" + concert.heure));
-        }, 1000);
-
-        return () => clearInterval(timer);
-    }, [concert.date, concert.heure]);
-
-    return (
-        <div className="concert-card">
-            <img src={`/images/${concert.img}`} alt={concert.titre} className="concert-image" />
+  return (
+    <div className="concert-container1">
+      <h1 className="concert-title1">Les nouveauté </h1>
+      <div className="concert-grid">
+        {events.map((event) => (
+          <div className="concert-card" key={event._id}>
+            <img
+              src={`http://localhost:5000/${event.image}`} // Assure-toi que les images existent sur le serveur
+              className="concert-image"
+              alt={event.name}
+            />
             <div className="concert-info">
-                <div className="concert-title-small">{concert.titre}</div>
-                <div className="concert-lieu">📍 {concert.lieu}</div>
-
-                <div className="countdown-timer">
-                    {timeLeft ? (
-                        <>
-                            ⏱️ {timeLeft.jours} j {timeLeft.heures} h {timeLeft.minutes} m {timeLeft.secondes} s
-                        </>
-                    ) : (
-                        <span className="concert-started">🚨 L'événement a commencé !</span>
-                    )}
-                </div>
-
-                <div className="concert-price">
-                    À partir de <span className="static-price">{concert.prix} MAD</span>
-                </div>
+              <div className="concert-title-small">{event.name}</div>
+              <div className="concert-lieu">📆 {event.date}</div>
+              <div className="concert-lieu">📍 {event.location}</div>
+              
+              <div className="concert-price">
+                À partir de <span className="static-price">{event.price} MAD</span>
+              </div>
             </div>
-            <button className="buy-ticket-btn">Acheter</button>
-        </div>
-    );
-}
+            <button className="buy-ticket-btn1">Acheter</button>
+          </div>
+        ))}
+      </div>
+      <div className="voir-plus-container">
+        <a href="/concerts-page" className="voir-plus-btn">
+          Voir plus
+        </a>
+      </div>
+    </div>
+  );
+};
+
+export default Can;

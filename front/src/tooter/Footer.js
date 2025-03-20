@@ -17,9 +17,9 @@ export default function Footer() {
           <h3>Liens utiles</h3>
           <ul>
             <li><Link to="/">Accueil</Link></li>
-            <li><Link to="/concerts">Concerts</Link></li>
-            <li><Link to="/matchs">Matchs</Link></li>
-            <li><Link to="/contact">À propos</Link></li>
+            <li><Link to="/concerts-page">Concerts & festivals </Link></li>
+            <li><Link to="/can-page">Can </Link></li>
+            <li><Link to="/about">À propos</Link></li>
           </ul>
         </div>
         

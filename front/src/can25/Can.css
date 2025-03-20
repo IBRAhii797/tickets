@@ -184,6 +184,25 @@ padding: 20px;
   transform: translateY(-10px);
   bottom: 0;
 }
+.voir-plus-container {
+  margin-top: 20px;
+}
+.voir-plus-btn {
+  background-color: #0074D9;
+  color: white;
+  padding: 12px 30px;
+  border-radius: 25px;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-decoration: none;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.voir-plus-btn:hover {
+  transform: translateY(-3px);
+  background-color: #0056b3;
+}
+
 
 /* أنيميشن Fade In */
 @keyframes fadeIn {
