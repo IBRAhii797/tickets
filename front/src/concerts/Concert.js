@@ -27,7 +27,7 @@ export default function Concert() {
 
             {/* Voir Plus */}
             <div className="voir-plus-container">
-                <Link to="/concerts" className="voir-plus-btn">Voir Plus</Link>
+                <Link to="/concerts-page" className="voir-plus-btn">Voir Plus</Link>
             </div>
         </div>
     );

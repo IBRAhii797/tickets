@@ -1,151 +1,59 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { FaFacebookF, FaTwitter, FaWhatsapp, FaInstagram } from "react-icons/fa";
-import FooterImage from "./img1.png"; // Assurez-vous que l'image est dans le bon dossier
+import React, { useEffect, useState } from "react";
+import Navbar from "../nav-bar/Navbar";
 
-import { FaHome, FaUser, FaShoppingCart, FaPhoneAlt, FaFutbol, FaMusic } from 'react-icons/fa';
-import Login from '../Login/Login';  // Si tu es dans le dossier src/nav-bar
+const ConcertPage = () => {
+  const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
 
+  // Fetch events from backend when component mounts
+  useEffect(() => {
+    fetch('http://localhost:5000/api/events')
+      .then((res) => res.json())
+      .then((data) => {
+        setEvents(data); // Stocke l'data f events
+        setLoading(false); // L7ajat jsmit fi loading
+      })
+      .catch((err) => {
+        console.error('Error:', err);
+        setLoading(false); // Idha kan chi error, ndirlo f loading false
+      });
+  }, []); // [] y3ni execute juste marra wa7da 3nd l'initialisation
 
-export default function ConcertsPage() {
-  const [showLogin, setShowLogin] = useState(false);
-
-  const handleLoginClick = () => {
-    setShowLogin(true); // Afficher la page de connexion
-  };
-
-  const handleCloseLogin = () => {
-    setShowLogin(false); // Fermer la page de connexion
-  };
+  if (loading) {
+    return <div>Chargement...</div>; // Display loading message
+  }
 
   return (
     <div>
-      <div className="P-NAV">
-        <ul className="left-items">
-          <li>
-            <Link to="/" className="logo">WRI9A</Link>
-          </li>
-          
-        </ul>
+      <Navbar />
+      <h1>Les événements</h1>
+      <div className="event-list">
+        {events.length > 0 ? (
+          events.map((event) => (
+            <div key={event._id} className="event-card">
+              <h2>{event.name}</h2>
+              <p><strong>Location:</strong> {event.location}</p>
+              <p><strong>Date:</strong> {event.date}</p>
+              <p><strong>Price:</strong> {event.price} DH</p>
+              {event.image && (
+                <img 
+                  src={`http://localhost:5000/${event.image}`} 
+                  alt={event.name} 
+                  width="300" 
+                />
+              
+              )}
+            <button className="buy-ticket-btn1">Acheter</button>
 
-        <ul className="right-items">
-          <li>
-          <Link  onClick={handleLoginClick} className=""> 
-              <FaUser /> SECONNECTER
-            </Link>
-          </li>
-          <li>
-            <Link to="/panier" className=""> 
-              <FaShoppingCart /> PANIER
-            </Link>
-          </li>
-        </ul>
+
+            </div>
+          ))
+        ) : (
+          <p>Aucun événement trouvé</p> // Affichage si ya mouchkil
+        )}
       </div>
-
-      <div className="D-NAV">
-        <Link to="/"> <FaHome /> ACCEUIL</Link>
-        <Link to="/can-page"> <FaFutbol /> CAN 25 </Link>
-        <Link to="/concerts-page"> <FaMusic /> CONCERT ET FESTIVALS</Link>
-        <Link to="/about"> <FaPhoneAlt /> ABOUT US</Link>
-      </div>
-
-      {showLogin && (
-        <div className="login-overlay">
-          <div className="login-box">
-            <Login />
-            <button className="close-btn" onClick={handleCloseLogin}>X</button> {/* Bouton pour fermer */}
-          </div>
-        </div>
-      )}
-
-
-
-
-
-
-
-
-
-
-<div>
-    <br/>
-    <br/>
-    <br/>
-    <h1>hna afficher lbody---------** music 2025 **</h1>
-    <br/>
-    <br/>
-    <br/>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<footer className="footer">
-      <div className="footer-container">
-        
-        <div className="footer-section">
-          <h3>À propos</h3>
-          <p>Un site de billetterie nouvelle génération vous offrant la possibilité d’acheter en ligne des tickets pour les événements de votre choix...</p>
-        </div>
-        
-        <div className="footer-section">
-          <h3>Liens utiles</h3>
-          <ul>
-            <li><Link to="/">Accueil</Link></li>
-            <li><Link to="/concerts">Concerts</Link></li>
-            <li><Link to="/matchs">Matchs</Link></li>
-            <li><Link to="/contact">À propos</Link></li>
-          </ul>
-        </div>
-        
-        <div className="footer-section">
-          <h3>Suivez-nous</h3>
-          <div className="social-icons">
-            <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer"><FaFacebookF /></a>
-            <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer"><FaTwitter /></a>
-            <a href="https://wa.me/212600000000" target="_blank" rel="noopener noreferrer"><FaWhatsapp /></a>
-            <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer"><FaInstagram /></a>
-          </div>
-        </div>
-
-        <div className="footer-section">
-          <h3>Contact</h3>
-          <p>Email : <a href="mailto:support@billetterie.com">support@billetterie.com</a></p>
-          <p>Téléphone : <a href="tel:+212600000000">+212 6 00 00 00 00</a></p>
-        </div>
-        
-        {/* Nouvelle section pour afficher l'image */}
-        <div className="footer-section footer-image no-bg">
-          <img src={FooterImage}  className="footer-logo" />
-        </div>
-      </div>
-
-      <p className="copyright">© 2025 Billetterie. Tous droits réservés.</p>
-    </footer>
     </div>
   );
-}
+};
+
+export default ConcertPage;

@@ -1,39 +1,50 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Navbar.css";
-import { FaHome, FaUser, FaShoppingCart, FaPhoneAlt, FaFutbol, FaMusic } from 'react-icons/fa';
-import Login from '../Login/Login';  // Si tu es dans le dossier src/nav-bar
+import { FaHome,FaSignOutAlt , FaUser, FaShoppingCart, FaPhoneAlt, FaFutbol, FaMusic } from 'react-icons/fa';
+import Login from '../Login/Login';
 
 export default function Navbar() {
   const [showLogin, setShowLogin] = useState(false);
-  const [showPanierMessage, setShowPanierMessage] = useState(false); // Etat pour gérer l'affichage du panier vide
-  const [items, setItems] = useState([]); // Etat pour gérer les articles du panier
-  const [showLoginOptions, setShowLoginOptions] = useState(false); // Etat pour afficher les options "Se connecter" et "Créer un compte"
-  const panierRef = useRef(null); // Référence au panier pour gérer le clic en dehors
+  const [showPanierMessage, setShowPanierMessage] = useState(false);
+  const [items, setItems] = useState([]);
+  const [showLoginOptions, setShowLoginOptions] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
+  const navigate = useNavigate();
+  const panierRef = useRef(null);
 
   const handleLoginClick = () => {
-    setShowLogin(true); // Afficher la page de connexion
-    setShowLoginOptions(false); // Masquer les options
+    setShowLogin(true);
+    setShowLoginOptions(false);
   };
 
   const handleCloseLogin = () => {
-    setShowLogin(false); // Fermer la page de connexion
+    setShowLogin(false);
   };
 
+  const handleLogout = () => {
+    const confirmLogout = window.confirm("Voulez-vous vraiment vous déconnecter ?");
+    if (confirmLogout) {
+      localStorage.removeItem("token");
+      setIsLoggedIn(false);
+      navigate("/");
+    }
+  };
+  
+
   const handlePanierClick = (e) => {
-    e.stopPropagation(); // Empêcher la propagation du clic pour ne pas fermer le message si on clique sur le panier
-    setShowPanierMessage(!showPanierMessage); // Afficher ou masquer le message du panier
+    e.stopPropagation();
+    setShowPanierMessage(!showPanierMessage);
   };
 
   const handleHoverLogin = () => {
-    setShowLoginOptions(true); // Afficher les options de connexion au survol
+    setShowLoginOptions(true);
   };
 
   const handleMouseLeaveLogin = () => {
-    setShowLoginOptions(false); // Masquer les options de connexion lorsque la souris quitte
+    setShowLoginOptions(false);
   };
 
-  // Clic en dehors du panier pour fermer le message
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (panierRef.current && !panierRef.current.contains(e.target)) {
@@ -42,10 +53,13 @@ export default function Navbar() {
     };
 
     document.addEventListener("click", handleClickOutside);
-
     return () => {
       document.removeEventListener("click", handleClickOutside);
     };
+  }, []);
+
+  useEffect(() => {
+    setIsLoggedIn(!!localStorage.getItem("token"));
   }, []);
 
   return (
@@ -62,14 +76,21 @@ export default function Navbar() {
 
         <ul className="right-items">
           <li className="login-hover" onMouseEnter={handleHoverLogin} onMouseLeave={handleMouseLeaveLogin}>
-            <Link to="#" className="" onClick={handleLoginClick}> 
-              <FaUser /> SECONNECTER
-            </Link>
-            {showLoginOptions && (
-              <div className="login-dropdown">
-                <Link to="/create-account">Créer un compte</Link>
-                <Link to="/login" onClick={handleLoginClick}>Se connecter</Link>
-              </div>
+            {isLoggedIn ? (
+              <button onClick={handleLogout} > <FaSignOutAlt /></button>
+            ) : (
+              <>
+                <Link to="" className=""> 
+                  <FaUser /> Compte
+                </Link>
+                {showLoginOptions && (
+                  <div className="login-dropdown">
+                    <Link to="/login" onClick={handleLoginClick}>Se connecter</Link>
+                    <Link to="/newacc">Créer un compte</Link>
+                    <Link to="/adminlogin">admin</Link>
+                  </div>
+                )}
+              </>
             )}
           </li>
           <li>
@@ -91,12 +112,12 @@ export default function Navbar() {
         <div className="login-overlay">
           <div className="login-box">
             <Login />
-            <button className="close-btn" onClick={handleCloseLogin}>X</button> {/* Bouton pour fermer */}
+            <button className="close-btn" onClick={handleCloseLogin}>X</button>
           </div>
         </div>
       )}
-   {/* Partie du panier avec gestion du panier vide */}
-   {showPanierMessage && (
+
+      {showPanierMessage && (
         <div className="panier-message">
           <div className="panier-box">
             {items.length === 0 ? (
