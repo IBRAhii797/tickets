@@ -17,7 +17,7 @@ const AdminLogin = () => {
         password,
       });
 
-      // Si l'admin est trouvé, rediriger vers la page d'admin
+      // Si l'admin est trouvé, rediriger vers la page dashboard
       if (response.data.message === "Admin found") {
         alert("Login successful!");
         navigate("/dashboard");

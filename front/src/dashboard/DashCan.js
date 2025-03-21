@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { HiArrowLeftStartOnRectangle } from "react-icons/hi2";
+
 import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap
 
 const MatchesTable = () => {
   const [matches, setMatches] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  
+  const navigate=useNavigate();
+  const retour=()=>{
+    navigate("/dashboard")
+  }
   useEffect(() => {
     fetch("http://localhost:5000/api/matches")
       .then((res) => res.json())
@@ -41,8 +47,12 @@ const MatchesTable = () => {
     <div className="container mt-4">
       <h1 className="mb-3">Liste des Matchs</h1>
       <Link to="/addmatch" className="btn btn-success mb-3">
-        Ajouter un Match
-      </Link>
+      ➕ Ajouter un Match
+      </Link> <br/>
+      <button className="btn btn-secondary" onClick={retour}>
+      <HiArrowLeftStartOnRectangle />
+</button> 
+
       <table className="table table-bordered table-striped">
         <thead className="table-dark">
           <tr>

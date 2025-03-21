@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap
 import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { HiArrowLeftStartOnRectangle } from "react-icons/hi2";
+
 
 const MusicForm = () => {
   const [name, setName] = useState("");
@@ -15,7 +17,9 @@ const MusicForm = () => {
   const handleFileChange = (e) => {
     setImage(e.target.files[0]);
   };
-
+const retour=()=>{
+  navigate("/dashmusic")
+}
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -41,6 +45,9 @@ const MusicForm = () => {
   return (
     <div className="container mt-4">
       <h2 className="mb-3">Ajouter un Événement</h2>
+      <button className="btn btn-secondary" onClick={retour}>
+      <HiArrowLeftStartOnRectangle />
+</button>
       <form onSubmit={handleSubmit} className="p-4 border rounded bg-light">
         <div className="mb-3">
           <label className="form-label">Nom de l'événement</label>
