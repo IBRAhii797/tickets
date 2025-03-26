@@ -1,9 +1,20 @@
 import React, { useEffect, useState } from "react";
+<<<<<<< HEAD
 import { Link } from "react-router-dom";
 import "./EventsTable.css";
+=======
+import { Link, useNavigate } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap
+import { HiArrowLeftStartOnRectangle } from "react-icons/hi2";
+
+>>>>>>> 86a02ea7ce8badacfa846674d7f56320b151feca
 
 const EventsTable = () => {
   const [events, setEvents] = useState([]);
+  const navigate=useNavigate();
+  const retour=()=>{
+    navigate("/dashboard")
+  }
 
   useEffect(() => {
     fetch("http://localhost:5000/api/events")
@@ -27,9 +38,19 @@ const EventsTable = () => {
   };
 
   return (
+<<<<<<< HEAD
     <div className="events-table-container">
       <h2 className="table-title">Liste des Événements</h2>
       <Link to="/addmusic" className="add-event-button">➕ Ajouter un Événement</Link>
+=======
+    <div className="container mt-4">
+      <h2 className="mb-3">Liste des Événements</h2>
+      <button className="btn btn-secondary" onClick={retour}>
+      <HiArrowLeftStartOnRectangle />
+</button> <br/>
+<Link to="/addmusic" className="btn btn-success mb-3">➕ Ajouter un Événement</Link><br/>
+
+>>>>>>> 86a02ea7ce8badacfa846674d7f56320b151feca
 
       <table className="events-table">
         <thead>

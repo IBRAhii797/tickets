@@ -1,7 +1,14 @@
 import React, { useState } from "react";
 import axios from "axios";
+<<<<<<< HEAD
 import "./MusicForm.css"; // Assurez-vous d'utiliser le bon chemin pour le fichier CSS
 import { useNavigate } from "react-router-dom";
+=======
+import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap
+import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { HiArrowLeftStartOnRectangle } from "react-icons/hi2";
+
+>>>>>>> 86a02ea7ce8badacfa846674d7f56320b151feca
 
 const MusicForm = () => {
   const [name, setName] = useState("");
@@ -15,7 +22,9 @@ const MusicForm = () => {
   const handleFileChange = (e) => {
     setImage(e.target.files[0]);
   };
-
+const retour=()=>{
+  navigate("/dashmusic")
+}
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -39,10 +48,20 @@ const MusicForm = () => {
   };
 
   return (
+<<<<<<< HEAD
     <div className="music-form-container">
       <h2 className="form-title">Ajouter un Événement</h2>
       <form onSubmit={handleSubmit} className="music-form">
         <div className="form-group">
+=======
+    <div className="container mt-4">
+      <h2 className="mb-3">Ajouter un Événement</h2>
+      <button className="btn btn-secondary" onClick={retour}>
+      <HiArrowLeftStartOnRectangle />
+</button>
+      <form onSubmit={handleSubmit} className="p-4 border rounded bg-light">
+        <div className="mb-3">
+>>>>>>> 86a02ea7ce8badacfa846674d7f56320b151feca
           <label className="form-label">Nom de l'événement</label>
           <input
             type="text"

@@ -1,9 +1,22 @@
 import React, { useState } from "react";
+<<<<<<< HEAD
 import { useNavigate } from "react-router-dom";
 import "./AddMatchForm.css"; // Assurez-vous d'avoir le bon chemin pour le fichier CSS
 
 const AddMatchForm = () => {
   const navigate = useNavigate();
+=======
+import { useNavigate } from "react-router-dom"; // Import useNavigate
+import "bootstrap/dist/css/bootstrap.min.css";
+import { HiArrowLeftStartOnRectangle } from "react-icons/hi2";
+
+
+const AddMatchForm = () => {
+  const navigate = useNavigate();
+  const retour=()=>{
+    navigate("/dashcan")
+  } // Initialisation du navigate
+>>>>>>> 86a02ea7ce8badacfa846674d7f56320b151feca
   
   const [formData, setFormData] = useState({
     teams: "",
@@ -58,9 +71,18 @@ const AddMatchForm = () => {
   };
 
   return (
+<<<<<<< HEAD
     <div className="match-form-container">
       <h2 className="form-title">Ajouter un Match</h2>
       <form onSubmit={handleSubmit} className="match-form">
+=======
+    <div className="container mt-4">
+      <h2 className="mb-3 text-center">Ajouter un Match</h2>
+      <button className="btn btn-secondary" onClick={retour}>
+      <HiArrowLeftStartOnRectangle />
+</button>
+      <form onSubmit={handleSubmit} className="border rounded bg-light p-4">
+>>>>>>> 86a02ea7ce8badacfa846674d7f56320b151feca
         
         <div className="form-group">
           <label className="form-label">Équipes :</label>
