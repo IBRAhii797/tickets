@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap
+import "./MatchesTable.css"; // Assurez-vous d'utiliser le bon chemin pour le fichier CSS
 
 const MatchesTable = () => {
   const [matches, setMatches] = useState([]);
@@ -38,13 +38,13 @@ const MatchesTable = () => {
   }
 
   return (
-    <div className="container mt-4">
-      <h1 className="mb-3">Liste des Matchs</h1>
-      <Link to="/addmatch" className="btn btn-success mb-3">
+    <div className="matches-table-container">
+      <h1 className="table-title">Liste des Matchs</h1>
+      <Link to="/addmatch" className="btn add-match-button">
         Ajouter un Match
       </Link>
-      <table className="table table-bordered table-striped">
-        <thead className="table-dark">
+      <table className="matches-table">
+        <thead>
           <tr>
             <th>id match</th>
             <th>Image</th>
@@ -64,8 +64,7 @@ const MatchesTable = () => {
                 <img
                   src={`http://localhost:5000/${match.image}`}
                   alt={`${match.teams}`}
-                  width="100"
-                  className="img-fluid"
+                  className="match-image"
                 />
               </td>
               <td>{match.teams}</td>
@@ -76,7 +75,7 @@ const MatchesTable = () => {
               <td>
                 <button
                   onClick={() => handleDelete(match._id)}
-                  className="btn btn-danger"
+                  className="btn delete-button"
                 >
                   🗑 Supprimer
                 </button>

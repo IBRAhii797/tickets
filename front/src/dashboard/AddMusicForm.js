@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import "./MusicForm.css"; // Assurez-vous d'utiliser le bon chemin pour le fichier CSS
+import { useNavigate } from "react-router-dom";
 
 const MusicForm = () => {
   const [name, setName] = useState("");
@@ -39,14 +39,14 @@ const MusicForm = () => {
   };
 
   return (
-    <div className="container mt-4">
-      <h2 className="mb-3">Ajouter un Événement</h2>
-      <form onSubmit={handleSubmit} className="p-4 border rounded bg-light">
-        <div className="mb-3">
+    <div className="music-form-container">
+      <h2 className="form-title">Ajouter un Événement</h2>
+      <form onSubmit={handleSubmit} className="music-form">
+        <div className="form-group">
           <label className="form-label">Nom de l'événement</label>
           <input
             type="text"
-            className="form-control"
+            className="form-input"
             placeholder="Entrez le nom"
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -54,11 +54,11 @@ const MusicForm = () => {
           />
         </div>
 
-        <div className="mb-3">
+        <div className="form-group">
           <label className="form-label">Lieu</label>
           <input
             type="text"
-            className="form-control"
+            className="form-input"
             placeholder="Entrez le lieu"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
@@ -66,22 +66,22 @@ const MusicForm = () => {
           />
         </div>
 
-        <div className="mb-3">
+        <div className="form-group">
           <label className="form-label">Date</label>
           <input
             type="text"
-            className="form-control"
+            className="form-input"
             value={date}
             onChange={(e) => setDate(e.target.value)}
             required
           />
         </div>
 
-        <div className="mb-3">
+        <div className="form-group">
           <label className="form-label">Prix (en DH)</label>
           <input
             type="number"
-            className="form-control"
+            className="form-input"
             placeholder="Entrez le prix"
             value={price}
             onChange={(e) => setPrice(e.target.value)}
@@ -89,12 +89,12 @@ const MusicForm = () => {
           />
         </div>
 
-        <div className="mb-3">
+        <div className="form-group">
           <label className="form-label">Image</label>
-          <input type="file" className="form-control" onChange={handleFileChange} required />
+          <input type="file" className="form-input" onChange={handleFileChange} required />
         </div>
 
-        <button type="submit" className="btn btn-primary w-100">
+        <button type="submit" className="form-button">
           Ajouter l'événement
         </button>
       </form>

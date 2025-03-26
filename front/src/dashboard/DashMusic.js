@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap
+import "./EventsTable.css";
 
 const EventsTable = () => {
   const [events, setEvents] = useState([]);
@@ -27,12 +27,12 @@ const EventsTable = () => {
   };
 
   return (
-    <div className="container mt-4">
-      <h2 className="mb-3">Liste des Événements</h2>
-      <Link to="/addmusic" className="btn btn-primary mb-3">➕ Ajouter un Événement</Link>
+    <div className="events-table-container">
+      <h2 className="table-title">Liste des Événements</h2>
+      <Link to="/addmusic" className="add-event-button">➕ Ajouter un Événement</Link>
 
-      <table className="table table-striped table-bordered text-center">
-        <thead className="table-dark">
+      <table className="events-table">
+        <thead>
           <tr>
             <th>ID</th>
             <th>Image</th>
@@ -51,8 +51,7 @@ const EventsTable = () => {
                 <img
                   src={`http://localhost:5000/${event.image}`}
                   alt={event.name}
-                  className="img-thumbnail"
-                  width="80"
+                  className="event-image"
                 />
               </td>
               <td>{event.name}</td>
@@ -60,7 +59,7 @@ const EventsTable = () => {
               <td>{event.date}</td>
               <td>{event.price} DH</td>
               <td>
-                <button className="btn btn-danger btn-sm" onClick={() => deleteEvent(event._id)}>
+                <button className="delete-button" onClick={() => deleteEvent(event._id)}>
                   🗑 Supprimer
                 </button>
               </td>

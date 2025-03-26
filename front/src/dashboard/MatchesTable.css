@@ -1,0 +1,182 @@
+/* Variables CSS */
+:root {
+    --primary: #2c3e50;
+    --primary-light: #34495e;
+    --secondary: #3498db;
+    --secondary-dark: #2980b9;
+    --accent: #e74c3c;
+    --light: #ecf0f1;
+    --dark: #2c3e50;
+    --gray: #95a5a6;
+    --light-gray: #f8f9fa;
+    --border-color: #dfe6e9;
+    --success: #2ecc71;
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+    --border-radius: 8px;
+    --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  }
+  
+  /* Styles de base */
+  .matches-table-container {
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-sm);
+  }
+  
+  .table-title {
+    color: var(--primary);
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    position: relative;
+    padding-bottom: 1rem;
+  }
+  
+  .table-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(to right, var(--secondary), var(--accent));
+    border-radius: 2px;
+  }
+  
+  /* Bouton Ajouter */
+  .add-match-button {
+    display: inline-block;
+    background-color: var(--secondary);
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    transition: var(--transition);
+    box-shadow: var(--shadow-sm);
+  }
+  
+  .add-match-button:hover {
+    background-color: var(--secondary-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+  
+  /* Tableau */
+  .matches-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    box-shadow: var(--shadow-sm);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+  }
+  
+  .matches-table th {
+    background-color: var(--primary);
+    color: white;
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+  }
+  
+  .matches-table td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    vertical-align: middle;
+  }
+  
+  .matches-table tr:last-child td {
+    border-bottom: none;
+  }
+  
+  .matches-table tr:hover {
+    background-color: var(--light-gray);
+  }
+  
+  /* Image des matchs */
+  .match-image {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 4px;
+    box-shadow: var(--shadow-sm);
+  }
+  
+  /* Bouton Supprimer */
+  .delete-button {
+    background-color: var(--accent);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+    font-weight: 500;
+  }
+  
+  .delete-button:hover {
+    background-color: #c0392b;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+  }
+  
+  /* État de chargement */
+  .loading {
+    text-align: center;
+    padding: 2rem;
+    color: var(--gray);
+    font-size: 1.2rem;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 992px) {
+    .matches-table-container {
+      padding: 1.5rem;
+    }
+    
+    .matches-table {
+      display: block;
+      overflow-x: auto;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .table-title {
+      font-size: 1.5rem;
+    }
+    
+    .matches-table th,
+    .matches-table td {
+      padding: 0.8rem;
+    }
+    
+    .match-image {
+      width: 50px;
+      height: 50px;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .matches-table-container {
+      padding: 1rem;
+      margin: 1rem;
+    }
+    
+    .add-match-button {
+      padding: 0.7rem 1.2rem;
+      font-size: 0.9rem;
+    }
+  }

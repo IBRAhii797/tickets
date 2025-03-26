@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
-import "bootstrap/dist/css/bootstrap.min.css";
+import { useNavigate } from "react-router-dom";
+import "./AddMatchForm.css"; // Assurez-vous d'avoir le bon chemin pour le fichier CSS
 
 const AddMatchForm = () => {
-  const navigate = useNavigate(); // Initialisation du navigate
+  const navigate = useNavigate();
   
   const [formData, setFormData] = useState({
     teams: "",
@@ -58,82 +58,82 @@ const AddMatchForm = () => {
   };
 
   return (
-    <div className="container mt-4">
-      <h2 className="mb-3 text-center">Ajouter un Match</h2>
-      <form onSubmit={handleSubmit} className="border rounded bg-light p-4">
+    <div className="match-form-container">
+      <h2 className="form-title">Ajouter un Match</h2>
+      <form onSubmit={handleSubmit} className="match-form">
         
-        <div className="mb-3">
+        <div className="form-group">
           <label className="form-label">Équipes :</label>
           <input
             type="text"
             name="teams"
-            className="form-control"
+            className="form-input"
             value={formData.teams}
             onChange={handleChange}
             required
           />
         </div>
 
-        <div className="mb-3">
+        <div className="form-group">
           <label className="form-label">Date :</label>
           <input
             type="date"
             name="date"
-            className="form-control"
+            className="form-input"
             value={formData.date}
             onChange={handleChange}
             required
           />
         </div>
 
-        <div className="mb-3">
+        <div className="form-group">
           <label className="form-label">Heure :</label>
           <input
             type="time"
             name="time"
-            className="form-control"
+            className="form-input"
             value={formData.time}
             onChange={handleChange}
             required
           />
         </div>
 
-        <div className="mb-3">
+        <div className="form-group">
           <label className="form-label">Lieu :</label>
           <input
             type="text"
             name="location"
-            className="form-control"
+            className="form-input"
             value={formData.location}
             onChange={handleChange}
             required
           />
         </div>
 
-        <div className="mb-3">
+        <div className="form-group">
           <label className="form-label">Prix (en DH) :</label>
           <input
             type="number"
             name="price"
-            className="form-control"
+            className="form-input"
             value={formData.price}
             onChange={handleChange}
             required
           />
         </div>
 
-        <div className="mb-3">
+        <div className="form-group">
           <label className="form-label">Image :</label>
           <input
             type="file"
             name="image"
-            className="form-control"
+            className="form-input"
             onChange={handleFileChange}
             required
           />
         </div>
 
-        <button type="submit" className="btn btn-primary w-100">
+        <button type="submit" className="form-button">
           Ajouter le match
         </button>
       </form>

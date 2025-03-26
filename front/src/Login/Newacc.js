@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom"; // 👈 Importer useNavigate
 import axios from "axios";
-import "./Login.css"
+import "./Login.css";
 
 const Newacc = () => {
   const [username, setUsername] = useState("");
@@ -26,14 +26,34 @@ const Newacc = () => {
   };
 
   return (
-    <div>
-      <h2>Créer un compte</h2>
-      <form onSubmit={handleSignup}>
-        <input type="text" placeholder="Nom" value={username} onChange={(e) => setUsername(e.target.value)} required />
-        <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-        <input type="password" placeholder="Mot de passe" value={password} onChange={(e) => setPassword(e.target.value)} required />
-        <button type="submit">S'inscrire</button>
-      </form>
+    <div className="newacc-container">
+      <div className="newacc-form">
+        <h2>Créer un compte</h2>
+        <form onSubmit={handleSignup}>
+          <input
+            type="text"
+            placeholder="Nom"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <input
+            type="password"
+            placeholder="Mot de passe"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <button type="submit">S'inscrire</button>
+        </form>
+      </div>
     </div>
   );
 };
